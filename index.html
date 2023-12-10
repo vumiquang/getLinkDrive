@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input[type=text],
+        select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            background-color: #888;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button.getlink {
+            background-color: dodgerblue !important;
+        }
+
+        body {
+            width: 300px;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <label>
+            <span>Link share gg drive</span>
+            <input type="text" id="input-1" placeholder="https://drive.google.com/file/d/.../view" />
+        </label>
+        <button onclick="convertDriveUrlToDownloadLink()" class="getlink">Get Link</button>
+
+    </div>
+    <div>
+        <label>
+            <span>Link Download</span>
+            <input type="text" id="input-gg-downloadlink-12345999" disabled />
+        </label>
+    </div>
+    <div>
+        <button onclick="copyText()">CopyLink</button>
+    </div>
+
+    <script>
+        function convertDriveUrlToDownloadLink() {
+            const input1 = document.getElementById("input-1");
+            const displayInput = document.getElementById("input-gg-downloadlink-12345999");
+            const text = input1.value
+            const fileId = text.match(/\/file\/d\/(.+?)\//)?.[1];
+
+            if (fileId) {
+                const downloadLink = `https://drive.google.com/uc?id=${fileId}&export=download`;
+                displayInput.value = downloadLink
+            } else {
+                alert('Nhập đúng định dạng link Ex: https://drive.google.com/file/d/.../view?usp=sharing')
+            }
+
+        }
+
+        function copyText() {
+            // Get the text field
+            var copyText = document.getElementById("input-gg-downloadlink-12345999");
+
+            // Select the text field
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(copyText.value);
+            // Alert the copied text
+            alert("Copied the text: " + copyText.value);
+        }
+    </script>
+</body>
+
+</html>
